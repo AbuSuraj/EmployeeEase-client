@@ -16,7 +16,7 @@ const EmployeesList = () => {
         console.error('Error fetching data from the API:', error);
       });
   }, []);
-
+  console.log(employees)
   useEffect(() => {
     // Check if all rows are manually selected or deselected
     setSelectAllChecked(selectedRows.length === employees.length);

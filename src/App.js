@@ -11,7 +11,7 @@ function App() {
     <div >
        {/* <CsvFileUploader/> */}
        <EmployeesList/>
-       <AddEmployee/>
+       {/* <AddEmployee/> */}
        {/* <DragDrop>
 
 </DragDrop> */}
