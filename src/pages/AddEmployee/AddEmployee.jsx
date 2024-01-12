@@ -6,6 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './addEmployee.css'
 import axios from 'axios';
+import CsvFileUploader from '../../components/csv-reader/Csv-reader';
 const AddEmployee = () => {
     const [isLoading, setLoading] = useState(false);
     const formik = useFormik({
@@ -119,116 +120,12 @@ const AddEmployee = () => {
               </form>
             </div>
           </div>
-    
           <ToastContainer />
+          <div>
+            <p className='py-3'>Or Upload csv file to add multiple employess </p>
+           <CsvFileUploader/>
+          </div>
         </div>
-// const [formData, setFormData] = useState({
-//     firstName: '',
-//     lastName: '',
-//     email: '',
-// });
-
-// const [errors, setErrors] = useState({});
-
-// const validateForm = () => {
-//     let isValid = true;
-//     const newErrors = {};
-    
-//     if (!formData.firstName.trim()) {
-//         newErrors.firstName = 'First Name is required';
-//         isValid = false;
-//     }
-    
-//     if (!formData.lastName.trim()) {
-//         newErrors.lastName = 'Last Name is required';
-//         isValid = false;
-//     }
-    
-//     if (!formData.email.trim()) {
-//         newErrors.email = 'Email is required';
-//         isValid = false;
-//     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-//         newErrors.email = 'Invalid email format';
-//         isValid = false;
-//     }
-    
-//     setErrors(newErrors);
-//     return isValid;
-// };
-
-// const handleInputChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-// };
-
-// const handleSubmit = (e) => {
-//     e.preventDefault();
-    
-//     if (validateForm()) {
-//         // Simulate adding employee (you can send data to the server here)
-//         toast.success('Employee added successfully');
-//         setFormData({ firstName: '', lastName: '', email: '' });
-//     } else {
-//         toast.error('Please fill in the required fields correctly');
-//     }
-//   };
-
-//   return (
-//     <Container  className="form-container bg-light p-4 rounded mt-4">
-//         <Row>Add Employee</Row>
-//       <Row className="justify-content-center text-center">
-//         <Col>
-//           <Form className='form' onSubmit={handleSubmit}>
-//             <Form.Group controlId="firstName">
-//               <Form.Label>First Name</Form.Label>
-//               <Form.Control
-//                 type="text"
-//                 name="firstName"
-//                 value={formData.firstName}
-//                 onChange={handleInputChange}
-//                 isInvalid={!!errors.firstName}
-//                 />
-//               <Form.Control.Feedback type="invalid">
-//                 {errors.firstName}
-//               </Form.Control.Feedback>
-//             </Form.Group>
-
-//             <Form.Group controlId="lastName">
-//               <Form.Label>Last Name</Form.Label>
-//               <Form.Control
-//                 type="text"
-//                 name="lastName"
-//                 value={formData.lastName}
-//                 onChange={handleInputChange}
-//                 isInvalid={!!errors.lastName}
-//                 />
-//               <Form.Control.Feedback type="invalid">
-//                 {errors.lastName}
-//               </Form.Control.Feedback>
-//             </Form.Group>
-
-//             <Form.Group controlId="email">
-//               <Form.Label>Email</Form.Label>
-//               <Form.Control
-//                 type="email"
-//                 name="email"
-//                 value={formData.email}
-//                 onChange={handleInputChange}
-//                 isInvalid={!!errors.email}
-//                 />
-//               <Form.Control.Feedback type="invalid">
-//                 {errors.email}
-//               </Form.Control.Feedback>
-//             </Form.Group>
-
-//             <Button variant="primary" type="submit">
-//               Add Employee
-//             </Button>
-//           </Form>
-//         </Col>
-//       </Row>
-
-//       <ToastContainer />
-//     </Container>
   );
 };
 
