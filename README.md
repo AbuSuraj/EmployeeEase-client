@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Employee-Ease
+Employee Ease is a comprehensive HR management web application built with React, Express, and MySQL, streamlining employee onboarding, bulk uploads, and communication within a company.
+## How to use this project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. Clone the GitHub repository to your local machine.
 
-## Available Scripts
+   ```bash
+   git clone https://github.com/AbuSuraj/EmployeeEase-client.git
 
-In the project directory, you can run:
+2. Navigate to the project directory.
 
-### `npm start`
+   ```
+    cd EmployeeEase-client.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. Install the project dependencies using npm.
+   ``` 
+   npm install.
+4. Run the following command
+   ```
+   npm start
+## Project live site link:
+https://employee-ease.netlify.app/
+## Used Features
+ - useState
+ - useEffect
+ - formik form
+ - React-paginate
+ - Bootstrap table
+## Projecy Description
+**Add New Employee:**
+   - Utilised <b>formik</b> form to add new employees.
+   - Validated all fields before adding.
+   - Displayed validation errors properly.
+   - Ensured a good UI and UX for the form.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+ **Bulk Employee Upload:**
+   - Created an HTML form to upload a CSV file.
+   - Supported drag and drop file upload.
+   - Displayed validation errors properly.
+   - Ensured a good UI and UX for the form.
+   - The CSV file contains at least 3 columns: first name, last name, email address.
+   - Ignored any other columns in the CSV.
+   - Added valid lines from the CSV file to the database as employees.
+   - Displayed the count of employees added and failed.
 
-### `npm test`
+ **View All Employees:**
+   - Created a table listing all the employees added.
+   - Displayed 5 employees at a time.
+   - Implemented pagination buttons for previous/next pages.
+   - Ensured a good UI and UX for the table.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ **Send Emails:**
+   - Selected employees from the table using checkboxes.
+   - Created a modal within a  form to compose emails with Subject and Body fields.
+   - Displayed validation errors properly.
+   - Ensured a good UI and UX for the email composition form.
+   - Used a Brevo service for the email composition (https://app.brevo.com)
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Note:** While utilizing confidential keys on Vercel for production, occasional email delivery delays may occur. It's essential to recognize that this phenomenon is unique to the production environment, with locally-run instances demonstrating optimal performance. 
