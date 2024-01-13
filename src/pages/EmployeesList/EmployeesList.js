@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import ReactPaginate from 'react-paginate';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Spinner  } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import './employees.css'
 import axios from 'axios';
@@ -14,11 +14,11 @@ const EmployeesList = () => {
  const [pageNumber, setPageNumber] = useState(0);
  const [showModal, setShowModal] = useState(false);
  const [receiver, setReceiver] = useState('');
- const [isLoading, setLoading] = useState(false);
+//  const [isLoading, setLoading] = useState(false);
 
  const employeesPerPage = 5; 
  const {
-  data: employees = { data: [], total: 0, currentPage: 1, totalPages: 1 },
+  data: employees = { data: [], total: 0, currentPage: 1, totalPages: 1 },isLoading,
 } = useQuery({
   queryKey: ['employees', pageNumber ],
   queryFn: async ({ queryKey }) => {
@@ -88,7 +88,7 @@ const handlePageClick = ({ selected }) => {
     }
    
     try {
-      setLoading(true);
+      // setLoading(true);
 
     // Send data to the server
     await axios.post('https://employee-ease-server.vercel.app/api/employees/send-email', emailData);
@@ -101,7 +101,7 @@ const handlePageClick = ({ selected }) => {
     console.error('Error semding email:', error);
     toast.error('Error sending email. Please try again.');
   } finally {
-      setLoading(false); // Set loading back to false after the request (success or error)
+      // setLoading(false); // Set loading back to false after the request (success or error)
     }
     handleCloseModal();
   };
@@ -139,7 +139,16 @@ const handlePageClick = ({ selected }) => {
           </tr>
         </thead>
         <tbody>
-          {employees?.data?.map((employee) => (
+          
+         { isLoading ? (
+          // Render spinner while loading
+          <div className="spinner-overlay">
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        ):
+          employees?.data?.map((employee) => (
             <tr key={employee.id}>
               <td>
                 <input
