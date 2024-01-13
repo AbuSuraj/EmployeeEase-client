@@ -5,7 +5,7 @@ import { Modal, Button, Form, Spinner  } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import './employees.css'
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const EmployeesList = () => {
   // const [employees, setEmployees] = useState([]);
@@ -91,7 +91,7 @@ const handlePageClick = ({ selected }) => {
       // setLoading(true);
 
     // Send data to the server
-    await axios.post('https://employee-ease-server.vercel.app/api/employees/send-email', emailData);
+    await axios.post('http://localhost:5000/api/employees/send-email', emailData);
 
     // Reset the form on successful submission
     toast.success('Email sent successfully');
@@ -100,9 +100,7 @@ const handlePageClick = ({ selected }) => {
     // Handle any errors that occur during the API request
     console.error('Error semding email:', error);
     toast.error('Error sending email. Please try again.');
-  } finally {
-      // setLoading(false); // Set loading back to false after the request (success or error)
-    }
+  } 
     handleCloseModal();
   };
 
@@ -219,6 +217,7 @@ const handlePageClick = ({ selected }) => {
           </Form>
         </Modal.Body>
       </Modal>
+      <ToastContainer />
     </div>
   );
 };
