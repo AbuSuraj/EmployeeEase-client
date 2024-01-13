@@ -123,7 +123,7 @@ const handlePageClick = ({ selected }) => {
 
       </div>
       <div>
-      <table className="table w-75 mx-auto p-2 shadow ">
+      <table className="table w-75 mx-auto shadow ">
         <thead>
           <tr>
             <th>
