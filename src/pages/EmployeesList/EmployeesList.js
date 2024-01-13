@@ -1,26 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 const EmployeesList = () => {
-  const [employees, setEmployees] = useState([]);
+  // const [employees, setEmployees] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAllChecked, setSelectAllChecked] = useState(false);
-
-  useEffect(() => {
-    // Fetch data from the server
-    axios.get('https://employee-ease-server.vercel.app/api/employees/')
-      .then(response => {
-        setEmployees(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data from the API:', error);
-      });
-  }, []);
+ const [pageNumber, setPageNumber] = useState(1);
+ const employeesPerPage = 5; 
+ const {
+  data: employees = { data: [], total: 0, currentPage: 1, totalPages: 1 },
+  refetch,
+  isLoading,
+} = useQuery({
+  queryKey: ['employees', pageNumber, ],
+  queryFn: async ({ queryKey }) => {
+    const [key, page, column, direction] = queryKey;
+    const res = await fetch(
+      `https://employee-ease-server.vercel.app/api/employees?page=${page}&pageSize=${employeesPerPage}`,
+    );
+    const data = await res.json();
+    // console.log(buyers);
+    return data;
+  },
+});
+ 
+const pageCount = employees.totalPages;
+console.log(employees)
+  // useEffect(() => {
+  //   // Fetch data from the server
+  //   axios.get('https://employee-ease-server.vercel.app/api/employees/')
+  //     .then(response => {
+  //       setEmployees(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching data from the API:', error);
+  //     });
+  // }, []);
   console.log(employees)
   useEffect(() => {
     // Check if all rows are manually selected or deselected
-    setSelectAllChecked(selectedRows.length === employees.length);
-  }, [selectedRows, employees]);
+    setSelectAllChecked(selectedRows.length === employees?.data?.length);
+  }, [selectedRows, employees?.data]);
 
   const handleCheckboxChange = (employeeId) => {
     setSelectedRows((prevSelectedRows) => {
@@ -40,13 +61,13 @@ const EmployeesList = () => {
       setSelectedRows([]);
     } else {
       // If "Select All" is unchecked, select all rows
-      setSelectedRows(employees.map((employee) => employee.id));
+      setSelectedRows(employees?.data.map((employee) => employee.id));
     }
   };
 
   const logSelectedData = () => {
     // Get the selected rows based on their IDs
-    const selectedData = employees.filter((employee) => selectedRows.includes(employee.id));
+    const selectedData = employees?.data.filter((employee) => selectedRows.includes(employee.id));
     console.log('Selected Data:', selectedData);
   };
 
@@ -72,7 +93,7 @@ const EmployeesList = () => {
           </tr>
         </thead>
         <tbody>
-          {employees.map((employee) => (
+          {employees?.data.map((employee) => (
             <tr key={employee.id}>
               <td>
                 <input
