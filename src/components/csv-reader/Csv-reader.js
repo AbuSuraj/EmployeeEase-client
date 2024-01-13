@@ -31,7 +31,7 @@ const CsvFileUploader = () => {
         const content = e.target.result;
         const rows = content.split('\n');
         const data = rows.map(row => row.split(','));
-        console.log(data.length);
+      
         setTotalData(data.length)
 
          extractedData = data.reduce((acc, row) => {
@@ -53,7 +53,7 @@ const CsvFileUploader = () => {
         } else {
           // sendDataToApi(extractedData);
           setCsvData(extractedData);
-          // console.log(extractedData);
+           
         }
       };
 

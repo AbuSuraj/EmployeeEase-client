@@ -23,16 +23,16 @@ const EmployeesList = () => {
   queryKey: ['employees', pageNumber ],
   queryFn: async ({ queryKey }) => {
     const [key, page] = queryKey;
-    console.log(page);
+     
     const res = await fetch(
       `https://employee-ease-server.vercel.app/api/employees?page=${page}&pageSize=${employeesPerPage}`,
     );
     const data = await res.json();
-    // console.log(buyers);
+    
     return data;
   },
 });
-  // console.log(employees)
+   
 const pageCount = employees.totalPage;
 const handlePageClick = ({ selected }) => {
   setPageNumber(selected + 1); 
@@ -68,7 +68,7 @@ const handlePageClick = ({ selected }) => {
   const sendEmail = () => {
     // Get the selected rows based on their IDs
     const selectedData = employees?.data.filter((employee) => selectedRows.includes(employee.id));
-    console.log('Selected Data:', selectedData);
+    
     setReceiver(selectedData);
     handleShowModal();
   };

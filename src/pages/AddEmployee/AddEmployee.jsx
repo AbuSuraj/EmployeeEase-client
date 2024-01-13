@@ -35,7 +35,7 @@ const AddEmployee = () => {
           return errors;
         },
         onSubmit: async (values, { resetForm }) => {
-            console.log(values);
+         
             try {
                 setLoading(true);
               // Send data to the server
@@ -60,7 +60,7 @@ const AddEmployee = () => {
           <div className="row justify-content-md-center">
             <div className="position-relative">
             {isLoading && (
-            // Render spinner while loading
+            
             <div className="spinner-overlay">
               <div className="d-flex justify-content-center align-items-center">
                 <div className="spinner-border" role="status">
