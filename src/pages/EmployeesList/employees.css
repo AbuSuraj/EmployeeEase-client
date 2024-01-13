@@ -35,15 +35,25 @@
   .pagination li.previous,
   .pagination li.next {
     background-color: #007bff;
-    color: #fff;
+    color: #fff !important;
     border: 1px solid #007bff;
+  }
+  .pagination li.previous a,
+  .pagination li.next a {
+   color: #ccc;
+    text-decoration: none !important;
   }
   /* Disabled next and previous buttons */
 .pagination li.previous.disabled,
 .pagination li.next.disabled {
   background-color: #ccc;
   border: 1px solid #ccc;
-  cursor: not-allowed;
+  cursor: not-allowed; 
+}
+
+.pagination li.previous.disabled a,
+.pagination li.next.disabled a{
+    color: black;
 }
 
   /* Break items */

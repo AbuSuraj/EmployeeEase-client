@@ -25,10 +25,11 @@ const EmployeesList = () => {
     return data;
   },
 });
-  console.log(employees)
+  // console.log(employees)
 const pageCount = employees.totalPage;
 const handlePageClick = ({ selected }) => {
   setPageNumber(selected + 1); 
+  setSelectedRows([])
 };
   useEffect(() => {
     // Check if all rows are manually selected or deselected
