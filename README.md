@@ -26,6 +26,11 @@ https://employee-ease.netlify.app/
  - formik form
  - React-paginate
  - Bootstrap table
+ - React Router
+ - React-Bootstrap
+ - Axios
+ - Tanstack 
+ - toaster 
 ## Projecy Description
 **Add New Employee:**
    - Utilised <b>formik</b> form to add new employees.
