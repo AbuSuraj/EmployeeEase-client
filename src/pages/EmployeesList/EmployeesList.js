@@ -1,43 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-
+import ReactPaginate from 'react-paginate';
+import './employees.css'
 const EmployeesList = () => {
   // const [employees, setEmployees] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAllChecked, setSelectAllChecked] = useState(false);
- const [pageNumber, setPageNumber] = useState(1);
+ const [pageNumber, setPageNumber] = useState(0);
  const employeesPerPage = 5; 
  const {
   data: employees = { data: [], total: 0, currentPage: 1, totalPages: 1 },
   refetch,
   isLoading,
 } = useQuery({
-  queryKey: ['employees', pageNumber, ],
+  queryKey: ['employees', pageNumber ],
   queryFn: async ({ queryKey }) => {
-    const [key, page, column, direction] = queryKey;
+    const [key, page] = queryKey;
+    console.log(page);
     const res = await fetch(
-      `https://employee-ease-server.vercel.app/api/employees?page=${page}&pageSize=${employeesPerPage}`,
+      `http://localhost:5000/api/employees?page=${page}&pageSize=${employeesPerPage}`,
     );
     const data = await res.json();
     // console.log(buyers);
     return data;
   },
 });
- 
-const pageCount = employees.totalPages;
-console.log(employees)
-  // useEffect(() => {
-  //   // Fetch data from the server
-  //   axios.get('https://employee-ease-server.vercel.app/api/employees/')
-  //     .then(response => {
-  //       setEmployees(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching data from the API:', error);
-  //     });
-  // }, []);
   console.log(employees)
+const pageCount = employees.totalPage;
+const handlePageClick = ({ selected }) => {
+  setPageNumber(selected + 1); 
+};
   useEffect(() => {
     // Check if all rows are manually selected or deselected
     setSelectAllChecked(selectedRows.length === employees?.data?.length);
@@ -70,13 +62,14 @@ console.log(employees)
     const selectedData = employees?.data.filter((employee) => selectedRows.includes(employee.id));
     console.log('Selected Data:', selectedData);
   };
-
+ 
   return (
     <div className="container mt-4">
       <h2>Employees List</h2>
       <button className="btn btn-primary mb-3" onClick={logSelectedData}>
         Log Selected Data
       </button>
+      <div>
       <table className="table">
         <thead>
           <tr>
@@ -93,7 +86,7 @@ console.log(employees)
           </tr>
         </thead>
         <tbody>
-          {employees?.data.map((employee) => (
+          {employees?.data?.map((employee) => (
             <tr key={employee.id}>
               <td>
                 <input
@@ -109,6 +102,22 @@ console.log(employees)
           ))}
         </tbody>
       </table>
+      </div>
+      <ReactPaginate
+          breakLabel={'...'}
+          breakClassName={'break-me'}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          containerClassName={'pagination'}
+          subContainerClassName={'pages pagination'}
+          activeClassName={'active'}
+          previousClassName={pageNumber === 1 ? 'previous disabled' : 'previous'}
+          nextClassName={pageNumber === pageCount ? 'next disabled' : 'next'}
+          previousLabel={pageNumber === 1 ? 'Previous' : 'Previous'}
+          nextLabel={pageNumber === pageCount ? 'Next' : 'Next'}
+        />
     </div>
   );
 };
