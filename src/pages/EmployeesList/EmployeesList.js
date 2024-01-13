@@ -4,18 +4,21 @@ import ReactPaginate from 'react-paginate';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import './employees.css'
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const EmployeesList = () => {
   // const [employees, setEmployees] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAllChecked, setSelectAllChecked] = useState(false);
  const [pageNumber, setPageNumber] = useState(0);
  const [showModal, setShowModal] = useState(false);
-
+ const [receiver, setReceiver] = useState('');
+ const [isLoading, setLoading] = useState(false);
 
  const employeesPerPage = 5; 
  const {
   data: employees = { data: [], total: 0, currentPage: 1, totalPages: 1 },
-  isLoading,
 } = useQuery({
   queryKey: ['employees', pageNumber ],
   queryFn: async ({ queryKey }) => {
@@ -66,6 +69,7 @@ const handlePageClick = ({ selected }) => {
     // Get the selected rows based on their IDs
     const selectedData = employees?.data.filter((employee) => selectedRows.includes(employee.id));
     console.log('Selected Data:', selectedData);
+    setReceiver(selectedData);
     handleShowModal();
   };
   const handleCloseModal = () => {
@@ -75,9 +79,30 @@ const handlePageClick = ({ selected }) => {
   const handleShowModal = () => {
     setShowModal(true);
   };
-  const onSubmit = (values) => {
-    // Handle your email sending logic here using values.subject and values.body
-    console.log('Sending email with Subject:', values.subject, 'and Body:', values.body);
+  const onSubmit = async(values,{ resetForm }) => {
+ 
+    const emailData = {
+      email: receiver.map( user => user.email),
+      subject: values.subject,
+      body: values.body
+    }
+    console.log([emailData]);
+    try {
+      setLoading(true);
+
+    // Send data to the server
+    await axios.post('https://employee-ease-server.vercel.app/api/employees/send-email', emailData);
+
+    // Reset the form on successful submission
+    toast.success('Email sent successfully');
+    resetForm();
+  } catch (error) {
+    // Handle any errors that occur during the API request
+    console.error('Error semding email:', error);
+    toast.error('Error sending email. Please try again.');
+  } finally {
+      setLoading(false); // Set loading back to false after the request (success or error)
+    }
     handleCloseModal();
   };
 
