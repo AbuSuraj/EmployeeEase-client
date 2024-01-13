@@ -58,7 +58,17 @@ const AddEmployee = () => {
         <div className="container mt-4 bg-light w-25 py-3 px-4 shadow ">
             <div className='text-lg-center text-md-start mb-2'><h5>Add Employee</h5></div>
           <div className="row justify-content-md-center">
-            <div className="">
+            <div className="position-relative">
+            {isLoading && (
+            // Render spinner while loading
+            <div className="spinner-overlay">
+              <div className="d-flex justify-content-center align-items-center">
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            </div>
+          )}
               <form onSubmit={formik.handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="firstName" className="form-label">
