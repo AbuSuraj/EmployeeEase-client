@@ -91,7 +91,7 @@ const handlePageClick = ({ selected }) => {
       // setLoading(true);
 
     // Send data to the server
-    await axios.post('http://localhost:5000/api/employees/send-email', emailData);
+    await axios.post('https://employee-ease-server.vercel.app/api/employees/send-email', emailData);
 
     // Reset the form on successful submission
     toast.success('Email sent successfully');
