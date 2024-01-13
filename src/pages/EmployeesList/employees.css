@@ -1,3 +1,6 @@
+.table-header{
+    height: 120px !important;
+}
 /* Pagination container */
 .pagination {
     display: flex;

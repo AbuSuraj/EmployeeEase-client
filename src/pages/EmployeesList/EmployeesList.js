@@ -86,7 +86,7 @@ const handlePageClick = ({ selected }) => {
       subject: values.subject,
       body: values.body
     }
-    console.log([emailData]);
+   
     try {
       setLoading(true);
 
@@ -113,14 +113,17 @@ const handlePageClick = ({ selected }) => {
  
   return (
     <div className="container mt-4">
-      <h2>Employees List</h2>
+      <div className='w-75 mx-auto table-header text-md-center'>
+      <h2 className=''>Total Employees: {employees?.totalEmployees}</h2>
       {selectedRows.length > 0 && (  
         <button className="btn btn-primary mb-3" onClick={sendEmail}>
           Send Email
         </button>
       )}
+
+      </div>
       <div>
-      <table className="table">
+      <table className="table w-75 mx-auto p-2 shadow ">
         <thead>
           <tr>
             <th>
